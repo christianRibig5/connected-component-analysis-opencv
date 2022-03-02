@@ -35,29 +35,29 @@ for i in range(0, numLabels):
     else:
         text = "examining component {}/{}".format( i + 1, numLabels)
     # print a status message update for the current connected
-	# component
+    # component
     print("[INFO] {}".format(text))
 
-    # extract the connected component statistics and centroid for
-	# the current label
-    x = stats[i, cv.CC_STAT_LEFT]
-    y = stats[i, cv.CC_STAT_TOP]
-    w = stats[i, cv.CC_STAT_WIDTH]
-    h = stats[i, cv.CC_STAT_HEIGHT]
-    area = stats[i, cv.CC_STAT_AREA]
-    (cX, cY) = centroids[i]
+# extract the connected component statistics and centroid for
+# the current label
+x = stats[i, cv.CC_STAT_LEFT]
+y = stats[i, cv.CC_STAT_TOP]
+w = stats[i, cv.CC_STAT_WIDTH]
+h = stats[i, cv.CC_STAT_HEIGHT]
+area = stats[i, cv.CC_STAT_AREA]
+(cX, cY) = centroids[i]
 
-    # clone our original image (so we can draw on it) and then draw
-	# a bounding box surrounding the connected component along with
-	# a circle corresponding to the centroid
+# clone our original image (so we can draw on it) and then draw
+# a bounding box surrounding the connected component along with
+# a circle corresponding to the centroid
 
 output = image.copy()
 cv.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 3)
 cv.circle(output, (int(cX), int(cY)), 4, (0, 0, 255), -1)
 
-    # construct a mask for the current connected component by
-	# finding a pixels in the labels array that have the current
-	# connected component ID
+# construct a mask for the current connected component by
+# finding a pixels in the labels array that have the current
+# connected component ID
 componentMask = (labels == i).astype("uint8") * 255
 	# show our output image and connected component mask
 cv.imshow("Output", output)
